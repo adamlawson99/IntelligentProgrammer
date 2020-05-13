@@ -11,7 +11,7 @@ Before we begin any programming challenge we need to determine what we know and 
 
 If we pick an arbitrary staircase length, say 6 how can we figure out how many ways to reach the top? Let’s work backwards for a moment here, and pretend we are already standing on stair 6. How did we reach this stair? We could have gotten here by either taking a one step from stair 5 or a two step from stair 4. So we know the number of ways to reach the 6th stair is the number of ways to reach the 4th stair + the number of ways to reach the 6th stair. How did we reach these 4th and 5th stairs, by taking one step or by taking two steps. This is true for every stair as we descend our staircase. Look at the tree below to understand how the works.
 
-![Recursive tree](/assets/Images/ClimbingStairs/tree (1 of 5).jpg)
+![Recursive tree](../assets/Images/ClimbingStairs/tree1.jpg)
 
 ## An initial recursive solution
 Looking at the tree above we can see we descend all the way down the tree until we reach a question we can answer, this is the principle of recursion. In recursion we keep passing down the problem until we reach someone (a call) that can give us an answer. We then take this answer and pass it upwards towards the person who asked the question. The answer is provided by our base cases which I mentioned earlier. Let’s now try to implement this function recursively and see where that takes us. Study the code below to understand why it works (I am writing the code below in C#):
