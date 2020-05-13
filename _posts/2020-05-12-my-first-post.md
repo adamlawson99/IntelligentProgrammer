@@ -51,9 +51,9 @@ We've elminated an entire subtree! Why? Because we already have those answers in
 
 Those nodes can be eliminated as well, let's do that!
 
-![Recursive tree 5](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/ClimbingStairs/tree4.jpg)
+![Recursive tree 5](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/ClimbingStairs/tree5.jpg)
 
-Look at how much smaller our tree is now, it only have n nodes! That's what's incredible about memoization, it allows us to decrease our runtime from exponential all the way down to linear time!
+Look at how much smaller our tree is now, it only has n nodes! That's what's incredible about memoization, it allows us to decrease our runtime from exponential all the way down to linear time!
 
 So how do we memoize, well for our inital memoization example we will us a **Dictionary** to store results we've already saved. In C#, dictionaries take a key and a value, using the key to index the dictionary when we need an answer. Think of it as a notepad with two columns one is the name of our answer, and the other is the answer itself. Each time we make a recursive we are first going to look in our dictionary and see if we have the answer we want. If it is, great! We just get that answer and return it, if not we have to calculate the answer ourselves.
 
