@@ -2,7 +2,7 @@
 layout: post
 title:  "Stair Climing"
 date:   2020-05-12 09:55:39 -0400
-categories: jekyll update
+categories: dynamic-programming
 ---
 ## Solving the stair climbing problem
 The climbing stairs problem is a classic interview question and a good question to get your feet wet with dynamic programming. The climbing stairs problem is as follows: “You are climbing a stair case. It takes n steps to reach to the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?” As a human we could easily calculate the number of ways for 4,5, or even 6 stairs. However, as the numbers get larger we end up having to do more and more of these calculations, of greatly increasing numbers each time. Okay so now we know why we need to do a computer to be able to solve this but how? How will our program figure out how many ways there are to reach a certain step? Let’s find that out.
