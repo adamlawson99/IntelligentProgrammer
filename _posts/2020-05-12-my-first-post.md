@@ -45,7 +45,7 @@ Let's remove those red nodes and take a look at our tree:
 
 ![Recursive tree 3](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/ClimbingStairs/tree3.jpg)
 
-We've elminated an entire subtree! Why because we already have those answers in the left subtree! Let's look for more repeated work.
+We've elminated an entire subtree! Why? Because we already have those answers in the left subtree! Let's look for more repeated work.
 
 ![Recursive tree 4](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/ClimbingStairs/tree4.jpg)
 
