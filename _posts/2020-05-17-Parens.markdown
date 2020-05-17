@@ -5,13 +5,41 @@ date:   2020-05-17 09:40:00 -0400
 categories: recursion
 ---
 ## Generating all pairs of valid parentheses
-Recursive functions all very powerful, but can also be non-intuitive and confusing for some. Today, we will be looking at the _parens_ problem found at page 136 in the book **Cracking the Coding Interview**. Tackling this problem will allow us to dive into recursion and also backtracking. By the end of this post I hope you have a better understanding of recursion and of backtracking, both of which are powerful tools for all sorts of problems.
+Recursive functions all very powerful, but can also be non-intuitive and confusing for some. Today, we will be looking at the _parens_ problem found at page 136 in the book **Cracking the Coding Interview**. Tackling this problem will allow us to dive into recursion and also backtracking. By the end of this post I hope you have a better understanding of recursion and of backtracking, both of which are powerful tools for all sorts of problems. (If you're already familiar with backtracking, feel free to skip the next section and go straight to the solution)
 
 ### BackTracking
 Backtracking is often brought up when it comes to discussion dynamic programming and recursion, let's look at what it is, how to use it, and when to use it.  Backtracking is defined as "a systematic way to iterate through all the possible configurations of a search space."[^1] This definition is nice and all, but what does it mean to 'iterate through all possible configurations of a search space'? A configuration is an option, a decision we make to persue a certain path in our search space. Our search space is all the options that are available to us after we make a certain decision. Let's imagine we are eploring a maze and we want to find the path that leads to certain point in our maze. Each time we come across an intersection in our maze we have to make decision to continue down one of the paths. Each time we continue down that path to the next intersection we change the configuration we are in and are presented a new set of options. Do I want to go left at this intersection or right? What about the next intersection? We continue making these decision until we **A.** Reach our goal or **B.** Reach a dead-end. Imagine yourself in the maze and this time let's say we lay down a path of breadcumbs that allows us to find our back to the previous intersection. If we reach a dead-end what do we do? We follow our breadcrumbs back to the intersection and explore the next unexplored path. We continue this until we've explored all the possible paths from this intersection. Then what? We _backtrack_ to the last intersection which still has unpexplored paths and explore those, rinse and repeat until we reach our goal.
 
 ![Maze 1](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/Parens/maze1.png)
-![Maze 2](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/Parens/maze2.png)
-![Maze 3](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/Parens/maze3.png)
+We reach a dead end so we backtrack to the last intersection that still has unexplored options
 
-The maze example ill
+![Maze 2](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/Parens/maze2.png)
+We reach a dead end so we backtrack to the last intersection that still has unexplored options
+
+![Maze 3](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/Parens/maze3.png)
+We reach our goal, so our algorithm ends
+
+It's important to note that a backtracking algorithm doesn't always explore every option. If we had a maze where we reach the goal by turning left right away it's possible that we our algorithm chooses this path first an exits, or it could explore the entirety of the maze and try this path at the very end. So how do we use a backtracking algorithm? 
+
+        public static bool FindPath(Point current, Point goal)
+        {
+            //if a path exists return true
+            if (current == goal)
+            {
+                return true;
+            }
+            //if we reach dead end, this path isn't valid, go back
+            if(current == outOfBounds)
+            {
+                return false;
+            }
+            //return the value of exploring the left and right subpaths
+            return FindPath(left) || FindPath(up);
+        }
+
+The above is a very simple backtracking where we can either make a move left or up, returning false if we reach a deadend and true if we reach our goal. When we first start this algorithm we will continually go left until we reach a dead-end or our goal, as FindPath(left) is the first recursive call we make. Let's imagine we don't find our goal, then what? The last call to Find(left) will return, and then Find(up) will get called. If this hits a dead-end too? Then that function returns as well, and we backtrack to the next Point. This continues until we reach the goal (if it exists, else we return false).
+
+When should we use backtracking? Backtracking should be used anytime we have a problem where we need to **exhaust all**, **visit all**, or **generate all** combinations/solutions to problem. Anytime we are faced with a problem with wording that implies the above, backtracking should jump to the front of our mind.
+
+### The Parentheses Problem
+The problem is stated as "Implement an algorithm to print all valid combinations of pairs of paretheses". Notice how the problem says we need to **_print all_** combinations of parentheses, this suggests that a backtracking algorithm may be appropriate for this.
