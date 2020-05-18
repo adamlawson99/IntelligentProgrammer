@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title:  "Welcome to my blog!"
 date:   2020-05-12 09:33:39 -0400
 categories: introduction

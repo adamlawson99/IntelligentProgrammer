@@ -1,7 +1,8 @@
 ---
-layout: post
+layout: single
 title:  "Parens (draft)"
 date:   2020-05-17 09:40:00 -0400
+classes: wide
 categories: recursion
 ---
 ## Generating all pairs of valid parentheses
@@ -44,7 +45,14 @@ When should we use backtracking? Backtracking should be used anytime we have a p
 ### The Parentheses Problem
 The problem is stated as "Implement an algorithm to print all valid combinations of pairs of paretheses". Notice how the problem says we need to **_print all_** combinations of parentheses, this suggests that a backtracking algorithm may be appropriate for this. So what is a valid pair of parentheses? A valid pair of parentheses means we have an opening bracket, followed by a closing bracket. For 1 pair of parentheses this means "()", for 2 pairs this means "()()" or "(())". So the most important step to backtracking is to break down the main problem is to smaller subproblems that we can tackle. In this case we are given the number of pairs of parentheses we need to make pairs for. Therefore, we have 2 * # of pairs parentheses to insert, because each pair has a left and right parenthese. This means each time we arrive at a step in our algorithm we have to decide to we insert a left or right parenthese? This is our subproblem. The next step is that we have to impose restrictions on our decisions, we have to make our decision based on some existing knowledge we have about the state of our problem, and the goal we would like to acheive. Clearly we cannot insert a right parenthese before we have a left parenthese, but what about after that?
 
-For one, we know we can't insert a right parenthese before we have inserted a left parenthese, so every combination must start with a left parenthese. How about right parentheses? When can we insert them? We can insert right parentheses when the number of left parentheses left to insert in our string is less than the number of right parentheses. Let's say we are given 2 pairs of parentheses to insert, so we start with 2 left parentheses and 2 right parentheses to insert. Our condition above says we have to insert a left parenthese, because the number of right parentheses is equal to the number of left parentheses. So, now we have 1 left parenthese and 2 right parentheses left to insert, what can we do? So long as we have at least 1 left parenthese remaining we can insert it, and we can also insert a right parenthese, since the amount remaining is greater than the number of left parentheses remaining. We continue this until we reach a point where we have 0 left parentheses and 0 right parentheses remaining, at this point we print the string and recurse upwards, backtracking to the last step that still has options available. Take a look at the tree below to understand this process.
+For one, we know we can't insert a right parenthese before we have inserted a left parenthese, so every combination must start with a left parenthese. How about right parentheses? When can we insert them? We can insert right parentheses when the number of left parentheses left to insert in our string is less than the number of right parentheses. Let's say we are given 2 pairs of parentheses to insert, so we start with 2 left parentheses and 2 right parentheses to insert. Our condition above says we have to insert a left parenthese, because the number of right parentheses is equal to the number of left parentheses. So, now we have 1 left parenthese and 2 right parentheses left to insert, what can we do? So long as we have at least 1 left parenthese remaining we can insert it, and we can also insert a right parenthese, since the amount remaining is greater than the number of left parentheses remaining. We continue this until we reach a point where we have 0 left parentheses and 0 right parentheses remaining, at this point we print the string and recurse upwards, backtracking to the last step that still has options available. Take a look at the tree below to understand this process when given 3 pairs of parentheses.
 
-![Maze 1](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/Parens/maze1.png)
-We reach a dead end so we backtrack to the last intersection that still has unexplored options
+![ParensTree 1](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/Parens/parenstree-1.jpg)
+Our algorithm start here, with an empty string and 3 left and 3 right parentheses left to insert
+
+![ParensTree 2](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/Parens/parenstree-2.jpg)
+If we continue down the left side of our tree we reach a point where we have 0 remaining left parentheses and 3 remaining right parentheses.
+We insert right parentheses until both our counts reach 0, we have then successfully generated a string with 3 pairs of valid parentheses.
+
+![ParensTree 3](https://github.com/adamlawson99/IntelligentProgrammer/raw/master/assets/Images/Parens/parenstree-3.jpg)
+Our algorithm start here, with an empty string and 3 left and 3 right parentheses left to insert

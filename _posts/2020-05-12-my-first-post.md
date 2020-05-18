@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title:  "Stair Climbing"
 date:   2020-05-12 09:55:39 -0400
 categories: dynamic-programming
