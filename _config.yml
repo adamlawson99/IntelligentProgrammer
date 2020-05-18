@@ -46,31 +46,19 @@ bing_site_verification   :
 yandex_site_verification :
 naver_site_verification  :
 
-# Social Sharing
-twitter:
-  username               :
-facebook:
-  username               :
-  app_id                 :
-  publisher              :
-og_image                 : 
-# For specifying social profiles
-# - https://developers.google.com/structured-data/customize/social-profiles
-social:
-  type                   : # Person or Organization (defaults to Person)
-  name                   : # If the user or organization name differs from the site's name
-  links: # An array of links to social media profiles
-
 # Analytics
 analytics:
   provider               : false # false (default), "google", "google-universal", "custom"
   google:
     tracking_id          :
     anonymize_ip         : # true, false (default)
-    
+
 # Site Footer
 footer:
   links:
+    - label : "Author"
+      icon : "fas fa-user-circle"
+      url : "https://adamlawson99.github.io/"
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
       url: "mailto:alaws909@gmail.com"
@@ -92,6 +80,7 @@ footer:
     - label : "Sources"
       icon : "fas fa-school"
       url : "/sources"
+
 
 
 # Reading Files
@@ -227,8 +216,8 @@ defaults:
       type: posts
     values:
       layout: single
-      author_profile: true
+      author_profile: false
       read_time: true
       comments: # true
-      share: true
+      share: false
       related: true
