@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Parens (draft)"
+title:  "Parens"
 date:   2020-05-17 09:40:00 -0400
 classes: wide
 categories: recursion
