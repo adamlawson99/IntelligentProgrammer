@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Binary Trees (draft)"
+title:  "Binary Trees"
 date:   2020-05-24 16:30:00 -0400
 classes: wide
 categories: binary-trees
