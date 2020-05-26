@@ -51,7 +51,7 @@ A perfect binary tree is a binary tree that is both complete and full. This type
 
 ## Binary Tree Traversal
 There a 3 main types of binary tree traversals, these are : pre-order, in-order, and post-order traversal. In pre-order traversal we visit the root first, then the left subtree, and finally the right subtree. In-order traversal has us visiting the left subtree, the root, and finally the right subtree. A post-order traversal visits the root last, visiting the left subtree first, then the right subtree, and finally the root. Let's see in what order we visit the nodes for the tree below:
-![Binary Tree Traversal]({{site.baseurl}}/assets/Images/BinaryTrees/bt-9.jpg)
+![Binary Tree Traversal]({{site.baseurl}}/assets/Images/BinaryTrees/bt-10.jpg)
 
 Pre-order: 7 -> 3 -> 4 -> 9 -> 10 -> 11 -> 8 -> 6
 
@@ -66,7 +66,7 @@ Binary Search trees are a special case of binary trees where all nodes smaller t
 In that case our search takes O(n), which is no better than just searching through an array normally. This happens because search time correlates directly with the height of our tree. The time complexity of our search is in fact O(h), where h is the height of our tree. For the case where our tree is balanced the height is roughly log n, in the worst unbalanced case, it can grow all the way to n, which is why the time complexity becomes O(n).
 
 ## Self Balancing Binary Trees and Final Thoughts 
-Before we wrap things up, I quickly wanted to touch on two types of self balancing binary search trees called **AVL Trees** and **Red Black Trees**. Without going into specifics, these two types of binary search trees contain algorithms to automatically rebalance the tree when it becomes unbalanced. Therefore, when we use a self balancing tree we can avoid the problem where we have a worst-case height of O(n), and guarantee our height will be roughly equal to O(log n). There exist other types of self balancing binary search trees, these 2 are the ones I see come up most often however. I wouldn't worry too much about their specific implementation and specific, just know that they exist.
+Before we wrap things up, I quickly wanted to touch on two types of self balancing binary search trees called **AVL Trees** and **Red Black Trees**. Without going into specifics, these two types of binary search trees contain algorithms to automatically rebalance the tree when it becomes unbalanced. Therefore, when we use a self balancing tree we can avoid the problem where we have a worst-case height of O(n), and guarantee our height will be roughly equal to O(log n). There exist other types of self balancing binary search trees, these 2 are the ones I see come up most often however. Don't worry too much about their specific implementation, just know that they exist.
 
 That concludes this post on binary trees, I hope you've found it helpful. It's very important to be comfortable with binary trees, I recommend implementing a binary tree and binary search tree in your language of choice to deepen your understanding of these data structures. As always, stay tuned for more content and have a good day!
 
