@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Longest Substring Without Repeating Characters (draft)"
+title:  "Longest Substring Without Repeating Characters"
 date:   2020-05-26 12:00:00 -0400
 classes: wide
 categories: strings
