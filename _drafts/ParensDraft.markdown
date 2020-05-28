@@ -21,7 +21,7 @@ We reach a dead end so we backtrack to the last intersection that still has unex
 We reach our goal, so our algorithm ends
 
 It's important to note that a backtracking algorithm doesn't always explore every option. If we had a maze where we reach the goal by turning left right away it's possible that we our algorithm chooses this path first and exits, or it could explore the entirety of the maze and try this path at the very end. So how do we use a backtracking algorithm? 
-
+```cs
         public static bool FindPath(Point current, Point goal)
         {
             //if a path exists return true
@@ -37,7 +37,7 @@ It's important to note that a backtracking algorithm doesn't always explore ever
             //return the value of exploring the left and right subpaths
             return FindPath(left) || FindPath(up);
         }
-
+```
 The above is a very simple backtracking where we can either make a move left or up, returning false if we reach a dead-end and true if we reach our goal. When we first start this algorithm, we will continually go left until we reach a dead-end or our goal, as FindPath(left) is the first recursive call we make. Let's imagine we don't find our goal, then what? The last call to Find(left) will return, and then Find(up) will get called. If this hits a dead-end too? Then that function returns as well, and we backtrack to the next Point. This continues until we reach the goal (if it exists, else we return false).
 
 When should we use backtracking? Backtracking should be used anytime we have a problem where we need to **exhaust all**, **visit all**, or **generate all** combinations/solutions to problem. Anytime we are faced with a problem with wording that implies the above, backtracking should jump to the front of our mind.
@@ -60,7 +60,7 @@ we then recurse down from that point on.
 
 ## Coding the algorithm
 Now comes the fun part, let's translate our algorithm into code! Take a look at the algorithm I've coded below:
-
+```cs
         private static void generatePermutations(string prefix, int leftRemaining, int rightRemaining, List<string> permutations)
         {
             //if the number of right and left parentheses remaining are both 0 we successfully genereated a valid combination
@@ -79,7 +79,7 @@ Now comes the fun part, let's translate our algorithm into code! Take a look at 
                 generatePermutations(prefix + ')', leftRemaining, rightRemaining - 1, permutations);
             }
         }
-
+```
 Now let's look at the output:
     ((()))
     (()())

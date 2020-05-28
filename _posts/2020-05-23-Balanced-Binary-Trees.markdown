@@ -16,7 +16,7 @@ Before we dive in I want to note that I won’t be discussing binary trees and t
 
 ## A first recursive solution
 The first solution we are going to be looking at is a naive recursive solution that runs in O(n^2). I say naive not because the solution is necessarily bad, but simply because it’s slow and we can do better. Don’t feel bad if it’s the first solution that comes to your mind (it was for me), it’s always better to start somewhere and then improve as we go along. It’s very important that we see and understand this solution so that we understand how we can improve it. Our first solution involves starting at our root and then verifying that it is balanced by calculating the height of its left and right subtrees. Then we move onto the left subtree and verify it is balanced and then the right subtree as well. Here is the code for this solution:
-
+```cs
         public bool IsBalanced(TreeNode root)
         {
             if(root == null)
@@ -44,14 +44,14 @@ The first solution we are going to be looking at is a naive recursive solution t
             }
             return Math.Max(GetHeight(root.left), GetHeight(root.right)) + 1;
         }
-
+```
 Pause for a moment and think about what’s happening here. To know if the root is balanced we calculate the height of the left and right subtrees, going from top to bottom. How do we calculate their height? By calculating the height of their respective subtrees. We repeat this process till we reach the bottom of the subtree and then return the values upwards. A null node has a depth of -1, each node returns the maximum value of its left and right subtrees + 1. So a leaf node returns a depth of Math.Max(-1,-1) + 1 = 0. The problem here is that once we finish checking the left and right subtrees of the root we move down a level in the tree and repeat the process all over again. We are calculating the same information many, many times. 
 
 We are recalculating the same information repeatedly because we approached the problem from a top down perspective, which requires us to deal with the root of the tree and all its subtrees to construct the final solution. Instead of doing that lets flip our thinking around and try a bottom up approach.
 
 ## A bottom up solution
 For the bottom up approach we are going to start at the bottom, at our leaf nodes, and build up our solution once piece at a time before we reach our final goal. We are going to begin with checking our lowest subtrees and then propagate their values upwards. The main idea behind this solution is that by calculating the depths of the lowest subtrees first, we don’t have to recalculate them each time we need to check if a particular subtree is balanced. When we arrive upon a new node, we will already have in our possession the depths of our left and right subtrees, which we can use to calculate our own depth, and then pass that information onwards. We are essentially doing a depth first search of our tree, calculating the height of a node when the recursion finishes. Let’s have a look at the code before we continue:
-
+```cs
         public int DFSHeight(TreeNode root)
         {
             if (root == null)
@@ -72,7 +72,7 @@ For the bottom up approach we are going to start at the bottom, at our leaf node
             return diff > 1 ? int.MinValue : Math.Max(leftHeight, rightHeight) + 1;
 
         }
-
+```
 Let’s look at the code line by line and see what’s happening. Just like the first example if our root is null we return we return -1. Next we recursively explore the left hand side of the tree until we reach a leaf node. How do we know our recursion ends on a leaf node? Well, once we reach a leaf node the call to DFSHeight(root.left) will return -1 and so will DFSHeight(root.right). Therefore, our leaf nodes will be sitting atop our call stack. Once we get the height of our left subtree we verify that its value is not equal to int.MinValue; Why is this the case? The last line of our program is essentially saying the following: “if my left and right subtrees differ in depth by more than 1, I will return the minimum integer value, else I will return my depth to the caller”. The reason we check for this value is because if one of our subtrees if unbalanced, then we will be unbalanced as well, a node can only be balanced if both its subtrees are balanced as well. We choose int.MinValue because no other scenario will cause us to return that value, it essentially acts as a flag, alerting us that the subtree is unbalanced. We could have chosen any value, so long as it would not get returned in the case when our subtree is balanced. For example, we wouldn’t want to choose an positive integer such as 1 or 5, because a node of depth 5 will return 5, and we would think it’s unbalanced, when it’s not. We could have also chosen say -2 or -3, because the lowest integer value we return is -1. int.MinValue is chosen because it’s easy to spot and also jumps out at us.
 
 We are propagating the depths of each subtree upwards, while checking for balance at each step. If we become any balanced at any point, then our flag will take precedence at get passed up instead of the depth. This allows us to visit each node only once, giving us an O(n) solution, much improved from our initial solution. Let's go to the whiteboard to see visualize how this works:

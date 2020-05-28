@@ -15,7 +15,7 @@ If we pick an arbitrary staircase length, say 6 how can we figure out how many w
 
 ## An initial recursive solution
 Looking at the tree above we can see we descend all the way down the tree until we reach a question we can answer, this is the principle of recursion. In recursion we keep passing down the problem until we reach someone (a call) that can give us an answer. We then take this answer and pass it upwards towards the person who asked the question. The answer is provided by our base cases which I mentioned earlier. Let’s now try to implement this function recursively and see where that takes us. Study the code below to understand why it works (I am writing the code below in C#):
-
+```cs
         public int StairCliming(int stairs)
         {
 
@@ -31,7 +31,7 @@ Looking at the tree above we can see we descend all the way down the tree until 
             //there are to reach stairs stair - 1 and stair - 2
             return StairCliming(stairs - 1) + StairCliming(stairs - 2);
         }
-
+```
 This Code is all well and good but there's a catch, it runs in O(2^n). For newcomers to big-O notations this means exponential time and is very bad, looking at the tree we see that each call to n generates 2 additional calls, except for the base cases. For small values of stairs this code runs just fine but starts to really slow down as we reach larger numbers. So let's make it better.
 
 ## Repeating Work
@@ -58,7 +58,7 @@ Look at how much smaller our tree is now, it only has n nodes! That's what's inc
 So how do we memoize, well for our inital memoization example we will us a **Dictionary** to store results we've already saved. In C#, dictionaries take a key and a value, using the key to index the dictionary when we need an answer. Think of it as a notepad with two columns one is the name of our answer, and the other is the answer itself. Each time we make a recursive we are first going to look in our dictionary and see if we have the answer we want. If it is, great! We just get that answer and return it, if not we have to calculate the answer ourselves.
 
 Below is the code we use to implement our StairClimbing function using memoization.
-
+```cs
         Dictionary<int, int> cache = new Dictionary<int, int>();
 
         public int StairClimbingWithMemoization(int stairs)
@@ -82,7 +82,7 @@ Below is the code we use to implement our StairClimbing function using memoizati
 
             return ans;
         }
-
+```
 Look at how much faster it runs compared to the old recursive solution when choosing a stairs value of 45:
 
     Climbing stairs without memoization
@@ -97,7 +97,7 @@ But why is it so much faster? It is so much faster because it runs in linear tim
 
 ## Improvements
 The above solution is pretty good, but surely we can make it better though. We can improve it but eliminating recursion all together. Let's think for a moment about what our recursive solution is doing, it's calling down to get the answer of stairs - 1 and stairs - 2, so at any moment we can look a the solution to the last 2 stairs and get the soltuion to the stair we are currently on. In dynamic programming this is refered to as the bottom up approach, where we look a the smaller subproblems first and use them to compute the answer of the larger problem. I didn't mention it before but the above code using memoization is considered a top down approach, we start from the large problem and break it down into smaller subproblems for which we can find the answer to. Essentially, in the top down approach we navigate the tree from the top to the bottom, each time branching down. In the bottom-up approach we solve the small subproblems first, building up our tree as we go along. For myself, top down is a more intuitive approach and makes more sense to me, but for others the inverse may be true. The bottom up approach will give an iterative solution in the form of a for loop where we build up each answer and use it to answer our bigger question. For this approach we will use an array to store the answer to our subproblems and use them each time we need to answer the next subproblem. Have a look at the code below:
-
+```cs
         public int StairClimbingBottomUp(int stairs)
         {
             if(stairs < 2)
@@ -120,14 +120,14 @@ The above solution is pretty good, but surely we can make it better though. We c
             //return the answer
             return cache[stairs - 1];
         }
-
+```
 In this implementation we ditch the reliance on an external dictionary and instead use an array to store our answers. We then build our solution from the bottom up. By the time we reach stair 6, we've already calculated the answer to stairs 4 and 5, and every stair before it. This method eliminates the need for recursion and is simple and clear to understand. To understand the thought process behind how we would come up with this solution we simply reverse our thinking from the top down approach. Instead of imagining ourselves and the top stair moving down, we imagine ourselves on the first stair moving upwards. Imagine standing on the 3rd stair with a notebook that contains the number of ways to reach the 1st and 2nd stair, to figure out how many ways there are to reach this stair I simply add the ways to reach stair 1 and 2, and the continue to the next stair, writing down the answer each time. By the time I reach the 6th stair I've already caculated stairs 1 through 5 and written the answer down, so I can easily figure out how many ways there are to the stair I'm on.
 
 Can we improve this solution at all? Yes we can! With one final improvement, read on to find out!
 
 ## A solution in O(n) time and O(1) space
 Attentive readers may have noticed that at each iteration of the for loop we are only using the answer of the last two stairs we visited. Therefore, we don't actually need to store the answer to stairs [0 : stairs - 3], once we calulate them we don't revist them. Instead let's use 3 variables. One that keeps track of the last stair (stair - 1), one that keeps track of the second to last stair (stair - 2), and one for keeping track of our answer. This way we can compute the answer use constant space instead of O(n) space.
-
+```cs
         public int StairClimbingConstantSpace(int stairs)
         {
             //the number of ways to climb the stair before the stair we are on, initially this is 1 for stair 1
@@ -147,7 +147,7 @@ Attentive readers may have noticed that at each iteration of the for loop we are
 
             return ans;
         }
-
+```
 In the code above you can see we completely removed the need for an array to store our answers, we build bottom up, each time looking at the 2 previous answers to compute the answer we want. This method works because we only ever need the last two stairs to compute the number of ways to reach the stair we are on, and since we start from the bottom stair we guarantee that information will be available to us.
 
 ## Conclusion
